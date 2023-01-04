@@ -1,0 +1,18 @@
+{
+  "name": "syne-display-electron",
+  "version": "1.0.0",
+  "description": "Syne Electron App for display",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "MaRisa Jackson",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^22.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.3"
+  }
+}
