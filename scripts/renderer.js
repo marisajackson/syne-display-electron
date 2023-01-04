@@ -33,9 +33,21 @@ jQuery(function () {
     .fail(function (err) {
       console.log(err)
       console.log('error')
-      $('#no-song').show();
-      $('#track-name').text('Something went wrong. Try again.');
-      $('#start-button').trigger('click');
+      if(err.status = '503'){
+        setTimeout(() => {
+          if(isActive){
+            getCurrentSong();
+          }
+        }, 3000);
+      } else {
+        $('#no-song').show();
+        $('#album-image').attr('src', '');
+        $('#artist-name').text('');
+        $('#album-name').text('');
+        $('#spotify-track-id').text('');
+        $('#track-name').text('Something went wrong. Try again.');
+        $('#start-button').trigger('click');
+      }
     })
     .always(function () {
       console.log('complete')
