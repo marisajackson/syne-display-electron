@@ -33,6 +33,9 @@ jQuery(function () {
     .fail(function (err) {
       console.log(err)
       console.log('error')
+      $('#no-song').show();
+      $('#track-name').text('Something went wrong. Try again.');
+      $('#start-button').trigger('click');
     })
     .always(function () {
       console.log('complete')
@@ -42,6 +45,11 @@ jQuery(function () {
   function setTrackInfoGUI(data){
     if(!data){
       $('#no-song').show();
+      $('#album-image').attr('src', '');
+      $('#track-name').text('');
+      $('#artist-name').text('');
+      $('#album-name').text('');
+      $('#spotify-track-id').text('');
     }
 
     $('#no-song').hide();
