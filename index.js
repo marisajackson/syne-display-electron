@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const {machineId, machineIdSync} = require('node-machine-id');
 const checkInternetConnected = require('check-internet-connected');
+const { exec } = require("child_process");
 
 app.whenReady().then(() => {
   createWindow();
@@ -38,5 +39,21 @@ const createWindow = () => {
     .catch((ex) => {
       console.log(ex); // cannot connect to a server or error occurred.
       win.webContents.send('is-online', false);
+      turnOnBleApp();
     });
+
+  function turnOnBleApp() {
+    exec("/usr/bin/python /home/syne/Desktop/display-ble/app.py", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+  }
 }
+
