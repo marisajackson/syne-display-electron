@@ -1,10 +1,13 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const replaceText = (selector, text) => {
-    const element = document.getElementById(selector)
-    if (element) element.innerText = text
-  }
+const {
+    ipcRenderer
+} = require("electron");
 
-  for (const dependency of ['chrome', 'node', 'electron']) {
-    replaceText(`${dependency}-version`, process.versions[dependency])
-  }
-})
+ipcRenderer.on('machine-data', function (event,store) {
+    console.log(store);
+    document.getElementById('machine-id').innerHTML = store;
+});
+
+ipcRenderer.on('is-online', function (event,store) {
+    console.log(store);
+    document.getElementById('is-online').innerHTML = store;
+});

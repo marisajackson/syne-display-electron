@@ -13,6 +13,8 @@
     "electron": "^22.0.0"
   },
   "dependencies": {
-    "jquery": "^3.6.3"
+    "check-internet-connected": "^2.0.6",
+    "jquery": "^3.6.3",
+    "node-machine-id": "^1.1.12"
   }
 }

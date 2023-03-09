@@ -22,11 +22,17 @@
 
     <hr>
 
-    <span id="spotify-track-id"></span>
+    <div id="app-data">
+      <p>Machine ID: <span id="machine-id"></span></p>
+      <p>Is Online: <span id="is-online"></span></p>
+      <p>Spotify Track ID: <span id="spotify-track-id"></span></p>
+      <p>Spotify Data:</p>
+      <pre id="spotify-data"></pre>
+    </div>
+
     <div>
       <button id="start-button">Start</button>
     </div>
-    <pre id="spotify-data"></pre>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type='module'src="./scripts/renderer.js"></script>
