@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const {machineId, machineIdSync} = require('node-machine-id');
+const { machineId, machineIdSync } = require('node-machine-id');
 const checkInternetConnected = require('check-internet-connected');
 const { exec } = require("child_process");
 
@@ -29,30 +29,49 @@ const createWindow = () => {
   win.loadFile('index.html');
   machineId().then((id) => {
     win.webContents.send('machine-data', id);
-  })
+  });
 
-  checkInternetConnected()
-    .then((result) => {
-      console.log(result);//successfully connected to a server
-      win.webContents.send('is-online', true);
-    })
-    .catch((ex) => {
-      console.log(ex); // cannot connect to a server or error occurred.
-      win.webContents.send('is-online', false);
-      turnOnBleApp();
-    });
+  var isOnline = false;
+  var bleIsOn = false;
+
+  checkConnection();
+
+  var wifiCheckInterval = setInterval(checkConnection, 30000);
+
+  function checkConnection() {
+    console.log('checking connection....');
+    checkInternetConnected()
+      .then((result) => {
+        console.log(result);//successfully connected to a server
+        win.webContents.send('is-online', true);
+        // win.webContents.send('is-online', false);
+        clearInterval(wifiCheckInterval);
+      })
+      .catch((ex) => {
+        console.log(ex); // cannot connect to a server or error occurred.
+        win.webContents.send('is-online', false);
+        turnOnBleApp();
+      });
+  }
+
 
   function turnOnBleApp() {
-    exec("/usr/bin/python /home/syne/Desktop/display-ble/app.py", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
+    if (bleIsOn) {
+      return;
+    }
+
+    bleIsOn = true;
+
+    exec("sudo /usr/bin/python /home/syne/Desktop/display-ble/app.py", (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
     });
   }
 }
