@@ -44,6 +44,7 @@ const createWindow = () => {
       .then((result) => {
         console.log(result);//successfully connected to a server
         win.webContents.send('is-online', true);
+        // win.webContents.send('is-online', false);
         clearInterval(wifiCheckInterval);
       })
       .catch((ex) => {

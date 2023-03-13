@@ -5,19 +5,27 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; img-src https://*; connect-src http://localhost:3000/ https://syne.herokuapp.com/"
+      content="default-src 'self'; script-src 'self'; img-src https://* 'self'; connect-src http://localhost:3000/ https://syne.herokuapp.com/"
     />
     <title>Syne</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
   </head>
   <body>
-    <h1>Syne</h1>
+    <div id="splash">
+      <img src="assets/images/syne_splash.png" alt="">
+    </div>
 
-    <!-- TODO isOnline Null: Show Splash Page -->
+    <div id="set-up">
+      <div class="center">
+        <img src="assets/images/syne_logo.png" alt="" class="logo">
+        <h1>To get started, download the Syne App.</h1>
+      </div>
+    </div>
+
     <!-- TODO: isOnline False & 10 seconds have passed & No previous connection: Show Setup Page start python script  -->
     <!-- TODO: isOnline False & 10 seconds have passed & previous connection: Show Error Page  -->
 
-    <div>
+    <div id ="stream">
       <h2 id="no-song">No Song Playing</h2>
       <img id="album-image" src="" alt="">
       <h2 id="track-name"></h2>
